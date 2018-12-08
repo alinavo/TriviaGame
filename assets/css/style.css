@@ -1,0 +1,43 @@
+body{
+    background: url(../images/HPwallpaper.jpg);
+	font-size: 20px;
+}
+
+header{
+	margin-bottom: 20px;
+}
+
+/* need space for gif */
+#gif{
+	margin: 30px;
+}	
+
+.btn-primary,.reset{
+	background-color: white;
+	color: black;
+	font-size: 30px;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.btn-primary:hover, .reset:hover{
+    background-color: lavender;
+    /* temporary blue */
+}
+
+.container{
+	margin-top: 50px;
+	text-align: center;
+	height: 100%;
+	width: 700px;
+	background-color: white;
+}
+
+.thisChoice:hover{
+    background-color: green;
+    /* temporary green */
+	color: white;
+	padding: 10px;
+}
+
+

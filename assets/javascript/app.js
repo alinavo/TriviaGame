@@ -9,135 +9,181 @@ var triviaQuestions = [{
     //book one
     question: "Which two houses does the Sorting Hat have difficulty putting Harry in?",
     answerList: ["Hufflepuff & Gryffindor", "Gryffindor & Slytherin", "Ravenclaw & Hufflepuff", "Gryffindor & Ravenclaw"],
-    answer: 2
+    answer: 1
 }, {
     //book two
     question: "Which Hufflepuff student does the serpent stare down during the duel between Malfoy and Harry?",
     answerList: ["Justin Finch-Fletchley", "Hannah Abbott", "Susan Bones", "Zacharias Smith"],
-    answer: 1
+    answer: 0
 }, {
     //book three
     question: "Which one of the Marauder’s is Sirius Black?",
     answerList: ["Moony", "Wormtail", "Padfoot", "Prongs"],
-    answer: 3
-    }, {
+    answer: 2
+}, {
     //book four
     question: "Who put Harry’s name in the Goblet of Fire?",
     answerList: ["Igor Kararov", "Barty Crouch Jr.", "Madeye Moody", "Severus Snape"],
-    answer: 2
+    answer: 1
 }, {
     //book five
     question: "What are the creatures Harry and Luna can see but no other students?",
     answerList: ["Dementors", "Blast-Ended Skrewts", "Nargles", "Thestrals"],
-    answer: 4
+    answer: 3
 }, {
     //book six
     question: "What scent does Hermione NOT describe when sniffing the love potion <i>Amortentia</i> ?",
     answerList: ["Freshly mown grass", "Spearmint toothpaste", "Roses", "Parchment"],
-    answer: 3
+    answer: 2
 }, {
     //book seven
     question: "Which magical object is NOT one of the three Deathly Hallows",
     answerList: ["Time-Turner", "Elder Wand", "Invisibility Cloak", "Resurrection Stone"],
-    answer: 1
+    answer: 0
 }, {
     //extra Q
     question: "Who was Headmaster of Hogwarts before Albus Dumbledore",
     answerList: ["Cornelius Fudge", "Rufus Scrimgeour", "Phineas Nigellus", "Armando Dippet"],
-    answer: 4
+    answer: 3
 }, {
     //extra Q
     question: "Which ghost died the first time the Chamber of Secrets was opened?",
     answerList: ["Bloody Baron", "Sir Nicholas", "Moaning Myrtle", "Helena Hufflepuff"],
-    answer: 3
+    answer: 2
 }, {
     //extra Q
     question: "How many children do Molly and Arthur Weasley have?",
     answerList: ["5", "6", "7", "8"],
-    answer: 3
-}];
+    answer: 2
+}]; 
 
 
 //array of gifs for answers, each corresponds to question number 
 //want gif to show up after answer is presented
 var gifArray = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
-
-var currentQ; //Question user is currently on
-var correct; //correct answer
-var incorrect;
-var unanswered;
-var seconds;
-var time;
-var answered; //question answered or not
-var userSelect;
-
-//alerts (or prints) to the user when question is right or wrong
-// alerts (or prints) right, wrong, out of time,
+var currentQuestion; var correctAnswer; var incorrectAnswer; var unanswered; var seconds; var time; var answered; var userSelect;
 var messages = {
-
-
-   correct: "Yes! That is right!",
-
-   incorrect: "No! That is wrong!",
-
-   timeEnd: "Sorry! You're out of time!",
-
-   finished: "Here are your results!"
-
-
-//start button begins new game when clicked
-$('#start').on('click', function () { 
-   $(this).hide();
-   newGame();
-});
-
-
-
-//restarts button restarts game (also beings new game when clicked)
-$('#restart').on('click', function () {
-   $(this).hide();
-   newGame();
-});
-
-
-//When new question comes up, empty alert/message div and correct answer with corresponding image/gif
-function newQuestion() {
-
-    $('#message').empty(); //empties message div
-    $('#correctedAnswer').empty(); //empties correct answer div
-    $('#gif').empty(); //empties gif div
-    answered = true;
- 
+	correct: "YAY! That is correct! ",
+	incorrect: "Nope. No. Sorry. That is wrong.",
+	endTime: "Uh oh! You ran out of time!",
+	finished: "Alright then! Here are your results: "
 }
 
-
-//sets up new questions & answerList
-
-$('#currentQuestion').html('Question #' + (currentQ + 1) + '/' + triviaQuestions.length); //prints to HTML question whichever one OUT OF total questions (10)
-
-
-$('.question').html('<h2>' + triviaQuestions[currentQ].question + '</h2>');
-
-//needs iterates through answers array, only 4 options for each
-for (var i = 0; i < 4; i++) {
-    var choices = $('<div>'); //adds div class for choices
-    choices.text(triviaQuestions[currentQ].answerList[i]);
-    choices.attr({ 'data-index': i });
-    choices.addClass('thisChoice'); //need to come up with better name! this is confusing
-    $('.answerList').append(choices);
-
-}
-
-countdown();
+$('.startBtn').click(function(){
+    $('.startBtn').hide();
+    newGame();
+});
 
 
-//clicking an answer will "pause the time" or stop time clock and setup answerPage
-$('.thisChoice').on('click', function () {
-    userSelect = $(this).data('index');
-    clearInterval(time); //clears the time 
-    answerPage(); 
+$('#startOverBtn').on('click', function(){
+	$('#startOverBtn').hide();
+	newGame();
 });
 
 
 
+function newGame(){
+	$('#finalMessage').empty();
+	$('#correctAnswers').empty();
+	$('#incorrectAnswers').empty();
+	$('#unanswered').empty();
+	currentQuestion = 0;
+	correctAnswer = 0;
+	incorrectAnswer = 0;
+	unanswered = 0;
+    newQuestion();
+}
+
+    
+// everything should show up on question page
+//all of this happens when a new questions comes onto the page
+function newQuestion(){
+	$('#message').empty();
+	$('#correctedAnswer').empty();
+	$('#gif').empty();
+	answered = true;
+	
+	//sets up new questions & answerList
+	$('#currentQuestion').html('Question #'+(currentQuestion+1)+' out of '+triviaQuestions.length);
+	$('.question').html('<h2>' + triviaQuestions[currentQuestion].question + '</h2>');
+	for(var i = 0; i < 4; i++){
+		var choices = $('<div>');
+		choices.text(triviaQuestions[currentQuestion].answerList[i]);
+		choices.attr({'data-index': i });
+		choices.addClass('thisChoice');
+		$('.answerList').append(choices);
+	}
+	countdown();
+	//clicking an answer will pause the time and setup answerPage
+	$('.thisChoice').on('click',function(){
+		userSelect = $(this).data('index');
+		clearInterval(time);
+		answerPage();
+    });
+
+}
+
+function countdown(){
+	seconds = 15;
+	$('#timeLeft').html("<h3>Time Remaining: " + seconds + " seconds </h3>");
+	answered = true;
+	//sets timer to go down
+	time = setInterval(showCountdown, 1000);
+}
+
+function showCountdown(){
+	seconds--;
+	$('#timeLeft').html("<h3>Time Remaining: " + seconds + " seconds </h3>");
+	if(seconds < 1){
+		clearInterval(time);
+		answered = false;
+		answerPage();
+	}
+}
+
+function answerPage(){
+	$('#currentQuestion').empty();
+	$('.thisChoice').empty(); //Clears question page
+	$('.question').empty();
+
+	var rightAnswerText = triviaQuestions[currentQuestion].answerList[triviaQuestions[currentQuestion].answer];
+	var rightAnswerIndex = triviaQuestions[currentQuestion].answer;
+	$('#gif').html('<img src = "assets/images/'+ gifArray[currentQuestion] +'.gif" width = "400px">');
+	//checks to see correct, incorrect, or unanswered
+	if((userSelect == rightAnswerIndex) && (answered == true)){
+		correctAnswer++;
+		$('#message').html(messages.correct);
+	} else if((userSelect != rightAnswerIndex) && (answered == true)){
+		incorrectAnswer++;
+		$('#message').html(messages.incorrect);
+		$('#correctedAnswer').html('The correct answer was: ' + rightAnswerText);
+	} else{
+		unanswered++;
+		$('#message').html(messages.endTime);
+		$('#correctedAnswer').html('The correct answer was: ' + rightAnswerText);
+		answered = true;
+	}
+	
+	if(currentQuestion == (triviaQuestions.length-1)){
+		setTimeout(scoreboard, 5000)
+	} else{
+		currentQuestion++;
+		setTimeout(newQuestion, 5000);
+	}	
+}
+
+function scoreboard(){
+	$('#timeLeft').empty();
+	$('#message').empty();
+	$('#correctedAnswer').empty();
+	$('#gif').empty();
+
+	$('#finalMessage').html(messages.finished);
+	$('#correctAnswers').html("Correct Answers: " + correctAnswer);
+	$('#incorrectAnswers').html("Incorrect Answers: " + incorrectAnswer);
+	$('#unanswered').html("Unanswered: " + unanswered);
+	$('#startOverBtn').addClass('reset');
+	$('#startOverBtn').show();
+	$('#startOverBtn').html('Start Over?');
+}
