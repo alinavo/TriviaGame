@@ -69,7 +69,7 @@ var incorrect;
 var unanswered;
 var seconds;
 var time;
-var answered;
+var answered; //question answered or not
 var userSelect;
 
 //alerts (or prints) to the user when question is right or wrong
@@ -87,16 +87,57 @@ var messages = {
 
 
 //start button begins new game when clicked
-$('#startBtn').on('click', function () { 
-   $(this).hide();
-   newGame();
-
-});
-
-//start over button also beings new game when clicked
-$('#startOverBtn').on('click', function () {
+$('#start').on('click', function () { 
    $(this).hide();
    newGame();
 });
+
+
+
+//restarts button restarts game (also beings new game when clicked)
+$('#restart').on('click', function () {
+   $(this).hide();
+   newGame();
+});
+
+
+//When new question comes up, empty alert/message div and correct answer with corresponding image/gif
+function newQuestion() {
+
+    $('#message').empty(); //empties message div
+    $('#correctedAnswer').empty(); //empties correct answer div
+    $('#gif').empty(); //empties gif div
+    answered = true;
+ 
+}
+
+
+//sets up new questions & answerList
+
+$('#currentQuestion').html('Question #' + (currentQ + 1) + '/' + triviaQuestions.length); //prints to HTML question whichever one OUT OF total questions (10)
+
+
+$('.question').html('<h2>' + triviaQuestions[currentQ].question + '</h2>');
+
+//needs iterates through answers array, only 4 options for each
+for (var i = 0; i < 4; i++) {
+    var choices = $('<div>'); //adds div class for choices
+    choices.text(triviaQuestions[currentQ].answerList[i]);
+    choices.attr({ 'data-index': i });
+    choices.addClass('thisChoice'); //need to come up with better name! this is confusing
+    $('.answerList').append(choices);
+
+}
+
+countdown();
+
+
+//clicking an answer will "pause the time" or stop time clock and setup answerPage
+$('.thisChoice').on('click', function () {
+    userSelect = $(this).data('index');
+    clearInterval(time); //clears the time 
+    answerPage(); 
+});
+
 
 
