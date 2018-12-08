@@ -1,6 +1,10 @@
 
 
 //questions that make up trivia game
+//question in string
+//answerList var for each one in array
+//answer is integer 
+//NOT SURE IF INTEGER SHOULD BE INDEX NUMBER OR NOT
 var triviaQuestions = [{
     //book one
     question: "Which two houses does the Sorting Hat have difficulty putting Harry in?",
@@ -54,8 +58,45 @@ var triviaQuestions = [{
 }];
 
 
+//array of gifs for answers, each corresponds to question number 
+//want gif to show up after answer is presented
+var gifArray = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
 
+var currentQ; //Question user is currently on
+var correct; //correct answer
+var incorrect;
+var unanswered;
+var seconds;
+var time;
+var answered;
+var userSelect;
 
+//alerts (or prints) to the user when question is right or wrong
+// alerts (or prints) right, wrong, out of time,
+var messages = {
+
+
+   correct: "Yes! That is right!",
+
+   incorrect: "No! That is wrong!",
+
+   timeEnd: "Sorry! You're out of time!",
+
+   finished: "Here are your results!"
+
+
+//start button begins new game when clicked
+$('#startBtn').on('click', function () { 
+   $(this).hide();
+   newGame();
+
+});
+
+//start over button also beings new game when clicked
+$('#startOverBtn').on('click', function () {
+   $(this).hide();
+   newGame();
+});
 
 
