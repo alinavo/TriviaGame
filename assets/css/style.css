@@ -1,10 +1,22 @@
 body{
     background: url(../images/HPwallpaper.jpg);
-	font-size: 20px;
+	font-size: 25px;
+	font-family: 'Vidaloka', serif;;
 }
 
 header{
-	margin-bottom: 20px;
+	margin-bottom: 40px;
+	background-color: #FCAE42;
+	padding: 30px;
+	width: 100%;
+}
+
+.center{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 150px;
+	
 }
 
 /* need space for gif */
@@ -12,25 +24,39 @@ header{
 	margin: 30px;
 }	
 
+#currentQuestion {
+	font-size: 30px;
+	text-decoration: underline;
+}
+
+#question{
+	font-size: 35px;
+	font-style: bold;
+}
+
 .btn-primary,.reset{
 	background-color: white;
 	color: black;
-	font-size: 30px;
+	border-style: solid, 5px, black;
+	font-size: 20px;
 	padding: 20px;
 	margin-top: 20px;
+	width: auto;
 }
 
 .btn-primary:hover, .reset:hover{
-    background-color: lavender;
+    background-color: #FCAE42;
     /* temporary blue */
 }
 
 .container{
-	margin-top: 50px;
+
+	padding-top: 20px;
 	text-align: center;
 	height: 100%;
-	width: 700px;
+	width: 75%;
 	background-color: white;
+	
 }
 
 .thisChoice:hover{
@@ -40,4 +66,6 @@ header{
 	padding: 10px;
 }
 
-
+h3{
+	color: green;
+}

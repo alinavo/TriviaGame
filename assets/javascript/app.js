@@ -3,18 +3,17 @@
 //questions that make up trivia game
 //question in string
 //answerList var for each one in array
-//answer is integer 
-//NOT SURE IF INTEGER SHOULD BE INDEX NUMBER OR NOT
+//answer is INDEX 
 var triviaQuestions = [{
     //book one
     question: "Which two houses does the Sorting Hat have difficulty putting Harry in?",
     answerList: ["Hufflepuff & Gryffindor", "Gryffindor & Slytherin", "Ravenclaw & Hufflepuff", "Gryffindor & Ravenclaw"],
-    answer: 1
+	answer: 1
 }, {
     //book two
     question: "Which Hufflepuff student does the serpent stare down during the duel between Malfoy and Harry?",
     answerList: ["Justin Finch-Fletchley", "Hannah Abbott", "Susan Bones", "Zacharias Smith"],
-    answer: 0
+	answer: 0
 }, {
     //book three
     question: "Which one of the Marauder’s is Sirius Black?",
@@ -60,28 +59,27 @@ var triviaQuestions = [{
 
 //array of gifs for answers, each corresponds to question number 
 //want gif to show up after answer is presented
-var gifArray = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+var gifArray = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+var infoArray = ["ABC"];
 
 var currentQuestion; var correctAnswer; var incorrectAnswer; var unanswered; var seconds; var time; var answered; var userSelect;
 var messages = {
-	correct: "YAY! That is correct! ",
-	incorrect: "Nope. No. Sorry. That is wrong.",
+	correct: "Gallopin' Goblins! That's right! ",
+	incorrect: "Sorry. That is wrong. Don't cry over spilt potion!",
 	endTime: "Uh oh! You ran out of time!",
-	finished: "Alright then! Here are your results: "
+	finished: "Hold your hippogriffs! Here are your results: "
 }
 
-$('.startBtn').click(function(){
-    $('.startBtn').hide();
-    newGame();
-});
+$(document).on("click", "#startBtn", function() {
+	$('#startBtn').hide();
+	newGame();
+  });
 
-
-$('#startOverBtn').on('click', function(){
+//needs to use document on instead of 
+$(document).on("click", "#startOverBtn", function() {
 	$('#startOverBtn').hide();
 	newGame();
-});
-
-
+  });
 
 function newGame(){
 	$('#finalMessage').empty();
@@ -123,7 +121,7 @@ function newQuestion(){
     });
 
 }
-
+//timer in function 
 function countdown(){
 	seconds = 15;
 	$('#timeLeft').html("<h3>Time Remaining: " + seconds + " seconds </h3>");
@@ -145,19 +143,22 @@ function showCountdown(){
 function answerPage(){
 	$('#currentQuestion').empty();
 	$('.thisChoice').empty(); //Clears question page
-	$('.question').empty();
-
+	$('.question').empty(); 
+	//right answer text is index of current question in trivia and same index of answer list -- taking the string from the array
 	var rightAnswerText = triviaQuestions[currentQuestion].answerList[triviaQuestions[currentQuestion].answer];
 	var rightAnswerIndex = triviaQuestions[currentQuestion].answer;
+	// $('#info').html( + infoArray[currentQuestion]);
 	$('#gif').html('<img src = "assets/images/'+ gifArray[currentQuestion] +'.gif" width = "400px">');
+
 	//checks to see correct, incorrect, or unanswered
 	if((userSelect == rightAnswerIndex) && (answered == true)){
 		correctAnswer++;
-		$('#message').html(messages.correct);
+		$('#message').html(messages.correct); //displays correct message to answer page
 	} else if((userSelect != rightAnswerIndex) && (answered == true)){
 		incorrectAnswer++;
-		$('#message').html(messages.incorrect);
+		$('#message').html(messages.incorrect); //displays incorrect message to answer page
 		$('#correctedAnswer').html('The correct answer was: ' + rightAnswerText);
+		// $('#info').html( + infoArray[currentQuestion]);
 	} else{
 		unanswered++;
 		$('#message').html(messages.endTime);
@@ -169,7 +170,7 @@ function answerPage(){
 		setTimeout(scoreboard, 5000)
 	} else{
 		currentQuestion++;
-		setTimeout(newQuestion, 5000);
+		setTimeout(newQuestion, 5000);		
 	}	
 }
 
@@ -185,5 +186,5 @@ function scoreboard(){
 	$('#unanswered').html("Unanswered: " + unanswered);
 	$('#startOverBtn').addClass('reset');
 	$('#startOverBtn').show();
-	$('#startOverBtn').html('Start Over?');
+	$('#startOverBtn').html('Want to start over?');
 }
