@@ -36,12 +36,12 @@ var triviaQuestions = [{
     answer: 2
 }, {
     //book seven
-    question: "Which magical object is NOT one of the three Deathly Hallows",
+    question: "Which magical object is NOT one of the three Deathly Hallows?",
     answerList: ["Time-Turner", "Elder Wand", "Invisibility Cloak", "Resurrection Stone"],
     answer: 0
 }, {
     //extra Q
-    question: "Who was Headmaster of Hogwarts before Albus Dumbledore",
+    question: "Who was Headmaster of Hogwarts before Albus Dumbledore?",
     answerList: ["Cornelius Fudge", "Rufus Scrimgeour", "Phineas Nigellus", "Armando Dippet"],
     answer: 3
 }, {
@@ -60,9 +60,16 @@ var triviaQuestions = [{
 //array of gifs for answers, each corresponds to question number 
 //want gif to show up after answer is presented
 var gifArray = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-var infoArray = ["ABC"];
 
-var currentQuestion; var correctAnswer; var incorrectAnswer; var unanswered; var seconds; var time; var answered; var userSelect;
+
+var currentQuestion; 
+var correctAnswer; 
+var incorrectAnswer; 
+var unanswered; 
+var seconds; 
+var time; 
+var answered; 
+var userSelect;
 var messages = {
 	correct: "Gallopin' Goblins! That's right! ",
 	incorrect: "Sorry. That is wrong. Don't cry over spilt potion!",
@@ -116,6 +123,7 @@ function newQuestion(){
 	//clicking an answer will pause the time and setup answerPage
 	$('.thisChoice').on('click',function(){
 		userSelect = $(this).data('index');
+		//clears the time
 		clearInterval(time);
 		answerPage();
     });
@@ -130,6 +138,8 @@ function countdown(){
 	time = setInterval(showCountdown, 1000);
 }
 
+//show the countdown of the timer
+//if the seconds goes to zero, clear the timer and the page
 function showCountdown(){
 	seconds--;
 	$('#timeLeft').html("<h3>Time Remaining: " + seconds + " seconds </h3>");
