@@ -61,7 +61,7 @@ var triviaQuestions = [{
 //want gif to show up after answer is presented
 var gifArray = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
-
+//variables
 var currentQuestion; 
 var correctAnswer; 
 var incorrectAnswer; 
@@ -76,7 +76,7 @@ var messages = {
 	endTime: "Uh oh! You ran out of time!",
 	finished: "Hold your hippogriffs! Here are your results: "
 }
-
+//fixed start button -- used document.on instead of regular jQuery $(startBtn)
 $(document).on("click", "#startBtn", function() {
 	$('#startBtn').hide();
 	newGame();
@@ -87,7 +87,7 @@ $(document).on("click", "#startOverBtn", function() {
 	$('#startOverBtn').hide();
 	newGame();
   });
-
+//newgame function
 function newGame(){
 	$('#finalMessage').empty();
 	$('#correctAnswers').empty();
@@ -185,6 +185,7 @@ function answerPage(){
 }
 
 function scoreboard(){
+	//leave all previous diivs empty because they are irrelevant on this page
 	$('#timeLeft').empty();
 	$('#message').empty();
 	$('#correctedAnswer').empty();
